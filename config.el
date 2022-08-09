@@ -98,6 +98,7 @@
 
 ;; BEGIN: Bibtex in Org configure
 ;; Configure org-ref and helm-bibtex
+
 (after! helm
   (use-package! helm-bibtex
     :custom
@@ -106,10 +107,7 @@
     (reftex-default-bibliography '("~/Documents/Notes/BibTex/default.bib"))
     ;; Not sure of this configuration)
     (bibtex-completion-pdf-field "field"))
-  ;; This key-map is done to access the bibiliography from anaywhere in emacs
-  (map! :leader
-        :desc "Open literature database"\
-        "o l" #'helm-bibtex)
+)
 ;; Configure org-ref (not sure why we need this or why not use biblio)
 (use-package! org-ref
   :custom
@@ -131,9 +129,9 @@
 
 ;; The keybinding below is just to get the helm-meu to behave according evil-mode
 ;; defaults
-  (map! :map  helm-map
-        "C-j" #'helm-next-line
-        "C-k" #'helm-previous-line))
+;;  (map! :map  helm-map
+;;        "C-j" #'helm-next-line
+;;        "C-k" #'helm-previous-line))
 
 ;; TODO: Read Helm-bibtex documentation and clean up the configuration a bit
 ;; TODO: Read org-ref documentation and clean up the configuration even more
