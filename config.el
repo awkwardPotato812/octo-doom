@@ -90,8 +90,10 @@
 ;; END: Org-roam configure
 
 ;; BEGIN: Bibtex in Org configure
-
-
+(after! citar
+  (setq citar-bibliography '("~/Documents/Notes/BibTex/default.bib"))
+  (setq citar-library-paths '("~/Documents/References"))
+  (setq citar-notes-paths '("~/Documents/Notes/org-notes")))
 ;; END: BibTex in Org configure
 
 ;; BEGIN: View pdfs in emacs configure
@@ -104,7 +106,9 @@
   (pdf-annot-minor-mode t))
 
 ;; Configuration for org-noter to annotate pdfs
-(after! org-noter
+(use-package! org-noter
+  :after (:any org pdf-view)
+  :config
   (setq
    org-noter-notes-search-path '("~/Document/Notes/org-notes")
    org-noter-hide-other nil

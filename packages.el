@@ -51,4 +51,3 @@
 
 ;; Install productivity workflow related packages
 (package! pdf-tools)
-(package! org-ref)
