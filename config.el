@@ -90,37 +90,8 @@
 ;; END: Org-roam configure
 
 ;; BEGIN: Bibtex in Org configure
-;; Configure org-ref and helm-bibtex
 
-;; Configure org-ref (not sure why we need this or why not use biblio)
-(use-package! org-ref
-  :custom
-  ;; Configure defaults
-  (org-ref-default-bibliography "~/Documents/Notes/BibTex/default.bib")
-  (org-ref-defualt-citation-link "citep"))
 
-;; A bit more of configuration to get org-ref and helm-bibtex to work together
-(setq org-ref-completion-library 'org-ref-helm-cite
-      org-export-latex-format-toc-function 'org-export-latex-no-toc
-      ;; For pdf export engines
-      org-latex-pdf-process (list "latexmk -pdflatex='%latex -shell-escape -interaction nonstopmode' -pdf -bibtex -f -output-directory=%0 %f")
-      ;; Some configuration on orb which I don't quite get. Will add later
-      )
-
-;; There is some more custom functions related to org-ref that allows to open the file/pdf
-;; in the citation. But I don't download things from arxiv much. Maybe I'll write my own
-;; custom function to open using url in bibtex entry
-
-;; The keybinding below is just to get the helm-meu to behave according evil-mode
-;; defaults
-;;  (map! :map  helm-map
-;;        "C-j" #'helm-next-line
-;;        "C-k" #'helm-previous-line))
-
-;; TODO: Read Helm-bibtex documentation and clean up the configuration a bit
-;; TODO: Read org-ref documentation and clean up the configuration even more
-;; TODO: Add util functions to view web versions of the resources I add in bib files in emacs itself
-;;
 ;; END: BibTex in Org configure
 
 ;; BEGIN: View pdfs in emacs configure
