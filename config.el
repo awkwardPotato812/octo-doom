@@ -85,13 +85,6 @@
 
 ;; BEGIN: Org-roam configure
 (setq org-roam-directory '"~/Documents/Notes/")
-(setq org-roam-capture-templates
-      (quote (("d" "default" plain (function org-roam--capture-get-point)
-               "%?"
-               :file-name "%<%Y-%m-%H%M>${slug}"
-               :head "#+TITLE: ${title}\n"
-               :unarrowed t
-               ))))
 (org-roam-db-autosync-mode)
 
 ;; END: Org-roam configure
@@ -99,15 +92,6 @@
 ;; BEGIN: Bibtex in Org configure
 ;; Configure org-ref and helm-bibtex
 
-(after! helm
-  (use-package! helm-bibtex
-    :custom
-    ;; Configure default library for helm-bibtex
-    (bibtex-completion-bibliography '("~/Documents/Notes/BibTex/default.bib"))
-    (reftex-default-bibliography '("~/Documents/Notes/BibTex/default.bib"))
-    ;; Not sure of this configuration)
-    (bibtex-completion-pdf-field "field"))
-)
 ;; Configure org-ref (not sure why we need this or why not use biblio)
 (use-package! org-ref
   :custom
@@ -140,13 +124,56 @@
 ;; END: BibTex in Org configure
 
 ;; BEGIN: View pdfs in emacs configure
+
 ;; Configuration to use pdf-tools instead of doc viewer
 (use-package! pdf-tools
   :config
-  (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-width)
   :custom
   (pdf-annot-minor-mode t))
 
-
+;; Configuration for org-noter to annotate pdfs
+(after! org-noter
+  (setq
+   org-noter-notes-search-path '("~/Document/Notes/org-notes")
+   org-noter-hide-other nil
+   org-noter-separate-notes-from-heading t
+   org-noter-always-create-frame nil)
+  (map!
+   :map org-noter-doc-mode-map
+   :leader
+   :desc "Insert note"
+   "m i" #'org-noter-insert-note
+   :desc "Insert precise note"
+   "m p" #'org-noter-insert-precise-note
+   :desc "Go to previous note"
+   "m k" #'org-noter-sync-prev-note
+   :desc "Go to next note"
+   "m j" #'org-noter-sync-next-note
+   :desc "Create skeleton"
+   "m s" #'org-noter-create-skeleton
+   :desc "Kill session"
+   "m q" #'org-noter-kill-session))
 ;; END: View pdfs in emacs configure
+
+;; BEGIN: Search through notes quickly
+(use-package deft
+  :commands deft
+  :init
+  (setq
+   deft-directory '("~/Documents/Notes")
+   deft-default-extension "org"
+   ;; Don't use filename for title
+   deft-use-filename-as-title nil
+   deft-use-filter-string-for-filename t
+   ;; disable auto save
+   deft-auto-save-interval -1.0
+   ;; Something on converting the filter string to kebab case
+   deft-file-naming-rules '(
+                            (noslash . "-")
+                            (nospace . "-")
+                            (case-fn . downcase)
+                            ))
+  :config
+  (add-to-list 'deft-extensions "tex"))
+;; END : Search through notes quickly

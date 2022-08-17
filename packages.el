@@ -50,6 +50,5 @@
 ;(unpin! t)
 
 ;; Install productivity workflow related packages
-(package! helm-bibtex)
 (package! pdf-tools)
 (package! org-ref)
