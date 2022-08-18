@@ -84,7 +84,7 @@
 (display-time-mode 2)
 
 ;; BEGIN: Org-roam configure
-(setq org-roam-directory '("~/Documents/Notes/"))
+(setq org-roam-directory "~/Documents/Notes/")
 (org-roam-db-autosync-mode)
 
 ;; END: Org-roam configure
